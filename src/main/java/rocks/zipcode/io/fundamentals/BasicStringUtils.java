@@ -6,7 +6,7 @@ public class BasicStringUtils {
      * @return new String which wraps the arguments passed in
      */
     public static String getString(char[] chars) {
-        return null;
+        return new String(chars);
     }
 
     /**
@@ -14,7 +14,12 @@ public class BasicStringUtils {
      * @return new String which wraps the arguments passed in
      */
     public static String getString(Character[] chars) {
-        return null;
+        String string = "";
+        for(Character thisChar: chars){
+            string += thisChar;
+        }
+
+        return new String(string);
     }
 
     /**
@@ -22,7 +27,8 @@ public class BasicStringUtils {
      * @return identical string with lowercase and uppercase vowels removed
      */
     public static String removeAllVowels(String string) {
-        return null;
+
+        return string.replaceAll("[AaEeIiOoUu]","");
     }
 
     /**
@@ -31,6 +37,7 @@ public class BasicStringUtils {
      * @return
      */
     public static String removeSpecifiedCharacters(String string, String charactersToRemove) {
-        return null;
+        String regex = "[" + charactersToRemove + "]";
+        return string.replaceAll(regex,"");
     }
 }
