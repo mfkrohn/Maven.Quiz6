@@ -3,6 +3,7 @@ package rocks.zipcode.io.collections;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CollectionUtils {
 
@@ -24,7 +25,7 @@ public class CollectionUtils {
     public static Boolean contains(Collection<? extends Collection<?>> nestedCollection, Collection<?> collection) {
 
 
-        return flatten(nestedCollection.toArray(new Collection[0])).containsAll(collection);
+        return nestedCollection.contains(collection);
 
     }
 
@@ -33,11 +34,8 @@ public class CollectionUtils {
      * @return a single collection containing each of the collections passed in as an argument
      */
     public static Collection<? extends Collection<?>> nest(Collection<?>... collections) {
-        List<Collection<? extends Collection<?>>> nestedList = new ArrayList<>();
-        for(Collection thisCollection: collections){
-            nestedList.add(thisCollection);
-        }
-        return nestedList;
+
+        return Arrays.asList(collections);
     }
 
     /**
@@ -45,11 +43,8 @@ public class CollectionUtils {
      * @return a single collection containing the aggregate contents of each collection passed in as an argument
      */
     public static Collection<?> flatten(Collection<?>... collections) {
-       List<Collection> flatList = new ArrayList<>();
-////        return flatList.stream().flatMap(collection -> collection.stream().collect(Collectors.toList()));
-        for(Collection thisCollection: collections){
-            flatList.addAll(thisCollection);
-        }
-        return flatList;
+
+        return Stream.of(collections).flatMap(Collection::stream).collect(Collectors.toList());
+
     }
 }
